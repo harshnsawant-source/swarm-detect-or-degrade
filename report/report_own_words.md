@@ -1,4 +1,4 @@
-# Detect or Degrade: When Can Colluding Agents Spend a Fleet's Oversight Budget?
+# Detect or Degrade: Audit Flooding in AI Agent Fleets
 
 **Harsh Nikhil Sawant** — Independent Researcher
 
