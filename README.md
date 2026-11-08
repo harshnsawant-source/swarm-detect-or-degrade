@@ -31,6 +31,18 @@ case?
 | `data/frozen.json` | Settings frozen before any monitor score existed. |
 | `DEVIATIONS.md` | Every change made after seeing data. |
 
+## Quick start (no models needed)
+
+All LLM judgements are saved in `data/`, so the simulator runs without Ollama:
+
+```
+pip install -r requirements.txt
+python sim/test_sim.py                                  # 34 checks
+python sim/experiments.py --tag quick --quick --workers 4   # about 30 s, writes results/quick/
+```
+
+The commands below regenerate everything, including the LLM data (needs Ollama).
+
 ## Reproduce
 
 ```
