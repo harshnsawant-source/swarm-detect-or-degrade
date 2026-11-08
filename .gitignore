@@ -25,3 +25,7 @@ report/Detect-or-Degrade.docx
 report/Detect-or-Degrade.pdf
 report/Detect-or-Degrade-Apart.docx
 ~$*
+
+# report backups
+report/*.v[0-9]*
+human_audit/make_sheet.py

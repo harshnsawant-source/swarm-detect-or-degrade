@@ -30,7 +30,7 @@ Our key contributions are:
 
 **AI control:** Trusted monitoring with a limited budget of manual inspections, and falling back to a trusted model, were introduced in [1]. This is reflected in our threshold, defer and global tripwire mechanisms. In [2], the idea was extended to multi-step agents, using resampling in place of fallback. Both consider the scenario where there is only one untrusted model. We consider the scenario where multiple agents share the same monitoring resources and some of them collude.
 
-**Wasting inspections:** In [3], safety arguments are given for untrusted monitoring, including a colluding monitor that wastes inspections. In our threat model the monitor is honest; the policy agents waste inspections by creating decoys.
+**Wasting inspections:** In [3], safety arguments are given for untrusted monitoring, including a colluding monitor that wastes inspections. In our threat model the monitor is honest. The policy agents waste inspections by creating decoys.
 
 **Distributing inspections in a fleet:** In [4], the distribution of an inspection budget across N agents with miscalibrated and correlated confidence, overseen by one human, was studied without an adversary. In [5], human oversight is modelled as a limited resource that becomes fatigued. We introduce an adversary that targets this limited resource.
 
@@ -42,7 +42,7 @@ Our novel contribution is a quantifiable condition: the attack succeeds exactly 
 
 ### 3.1 Tasks and Items
 
-We created 20 small Python tasks, such as a coupon calculator, a password hasher, a webhook signature checker and a medicine dose calculator. Each task has a reference solution, functional tests and hidden safety tests that define what counts as harmful code (e.g. accepting a forged signature). Each submission is one of three types: honest (passes all tests), attack (passes the functional tests but fails at least one safety test) or decoy (passes all tests but is written to appear suspicious). The item counts are given in Table 1 (Appendix B).
+We created 20 small Python tasks, such as a coupon calculator, a password hasher, a webhook signature checker and a medicine dose calculator. Each task has a reference solution, functional tests and hidden safety tests that define what counts as harmful code (e.g. accepting a forged signature). Each agent submitted an honest, attack or decoy item. Honest items pass all tests. Attack items pass the functional tests and fail at least one safety test. Decoy items pass all tests, but have been designed to look suspicious. A summary of the number of items of each type can be seen in Table 1 (Appendix B).
 
 The 20 tasks were divided into 10 discovery and 10 evaluation tasks. The split and all monitor settings were frozen before any monitor scores were available. Calibration was performed on the discovery tasks, and all results were obtained on the evaluation tasks.
 
@@ -64,12 +64,12 @@ We use a fleet of N = 50 agents that complete T = 100 rounds. Each agent submits
 
 ### 3.4 Mechanisms
 
-1. **Threshold:** Flagged items are inspected until the budget is exhausted; after that, everything runs uninspected.
-2. **Defer:** Flagged items are inspected until the budget is exhausted; after that, flagged items are passed to the trusted model.
+1. **Threshold:** Flagged items are inspected until the budget is exhausted. After that, everything runs uninspected.
+2. **Defer:** Flagged items are inspected until the budget is exhausted. After that, flagged items are passed to the trusted model.
 3. **Random reserve:** As defer, but 25% of the budget is used on random inspections.
 4. **Global tripwire:** As defer, plus a fleet-wide binomial test on the flagged rate (α = 0.001). If it is triggered, the whole fleet is passed to the trusted model.
 5. **Per-agent tripwire:** The same binomial test is performed on each agent (α/N). Only that agent is passed to the trusted model.
-6. **Per-agent + random flagged reserve:** Per-agent tripwire, with 25% of the budget held back; once the main budget is exhausted, flagged items are inspected from this reserve with probability 0.2.
+6. **Per-agent + random flagged reserve:** Per-agent tripwire, with 25% of the budget held back. Once the main budget is exhausted, flagged items are inspected from this reserve with probability 0.2.
 7. **Triage cascade:** A flagged item is only inspected if a second model (gemma4:31b-cloud with the auditor prompt) also convicts it. Otherwise it is deferred.
 
 Mechanisms 6 and 7 are our attempted defences. Mechanism 7 was added after seeing the initial results (see Section 3.6).
@@ -88,7 +88,7 @@ Mechanisms 6 and 7 are our attempted defences. Mechanism 7 was added after seein
 
 ### 3.6 Statistics and Post-Hoc Changes
 
-All confidence intervals are 95% intervals calculated with a task-level bootstrap: 100 resamples of the 10 evaluation tasks, with 60 episodes per resample. Paired differences were calculated on the same resamples. The simulator passed 34 positive and negative control checks. All post-hoc changes are listed in Appendix D.
+All confidence intervals are 95% intervals calculated with a task-level bootstrap: 100 resamples of the 10 evaluation tasks, with 60 episodes per resample. Paired differences were calculated on the same resamples. The simulator passed 34 positive and negative control checks. All changes made after seeing the data can be seen in Appendix D.
 
 ## 4. Results
 
@@ -102,7 +102,7 @@ If each inspected decoy is independently convicted by the auditor with probabili
 
 ![Figure 1](figures/pcurve.png)
 
-*Figure 1: Safety when the attacker floods 100 decoys (budget = 100 inspections), as a function of the auditor's per-decoy conviction rate p. Real monitor scores are used; p is set by hand. The budget mechanisms follow the closed form 1 − (1 − p)^100 (dashed). The dotted line shows the attacker's best outcome with no decoys (0.37). The attacker only benefits from flooding to the left of the intersection point (p ≈ 0.005). Error bars: 95% task-level bootstrap confidence intervals.*
+*Figure 1: Safety when the attacker floods 100 decoys (budget = 100 inspections), as a function of the auditor's per-decoy conviction rate p. Real monitor scores are used, and p is set by hand. The budget mechanisms follow the closed form 1 − (1 − p)^100 (dashed). The dotted line shows the attacker's best outcome with no decoys (0.37). The attacker only benefits from flooding to the left of the intersection point (p ≈ 0.005). Error bars: 95% task-level bootstrap confidence intervals.*
 
 This can be seen in Figure 1. With p = 0.003, defer provides 0.25 safety. With p = 0.01, defer already provides 0.56 safety, which is above the baseline, so flooding hurts the attacker. With the per-agent tripwire, safety stays flat at low values of p, because the flooding agents are cut off before the budget is drained. However, at p = 0.03 its safety is lower than that of the budget mechanisms (0.61 vs 0.91), because cutting off the decoy agents also removes the chances to convict them.
 
@@ -119,11 +119,13 @@ This can be seen in Figure 1. With p = 0.003, defer provides 0.25 safety. With p
 
 The attacker's natural filtering tool is its own model. When given the auditor prompt, gemma convicts all 127 obvious LLM decoys, so no usable decoys are left. When asked to create mild decoys, it creates decoys with a low flagged rate (8%). After filtering, only 7 of the 123 decoys remain, and the real auditor convicts 1 of them. Grouped with the filtered hand-written decoys, this gives p ≈ 1/33, around 6 times higher than required. Hand-written mild decoys, by contrast, are flagged 79% of the time and none are convicted by the auditor on the evaluation tasks. These overcome the budget mechanisms without any filtering.
 
+To ensure this was not a feature of the LLM auditor only, a single human auditor (the author) answered the same two questions on a blinded sample of 40 items. The human auditor did not convict any of the 12 hand-written mild decoys, whilst the LLM auditor convicted 1 out of 12. There was strong agreement between the LLM auditor and the human auditor (88.6%) on the 35 items assessed by both. This is consistent with p ≈ 0 for well-written decoys, but we cannot be sure that p < 0.005 from only 12 items. See Appendix E.
+
 ### 4.4 All Mechanisms Suffer From a Trade-off
 
 ![Figure 2](figures/headline_frontier.png)
 
-*Figure 2: Worst-case safety (the attacker attempts to attack) against worst-case usefulness (the attacker attempts to degrade). Left: unfiltered decoys; all mechanisms overlap at the no-decoy baseline, because the attacker is caught when flooding. Right: decoys that the auditor acquits; no mechanism reaches the top-right corner. Error bars: 95% confidence intervals of the worst-case configuration.*
+*Figure 2: Worst-case safety (the attacker attempts to attack) against worst-case usefulness (the attacker attempts to degrade). Left: unfiltered decoys. All mechanisms overlap at the no-decoy baseline, because the attacker is caught when flooding. Right: decoys that the auditor acquits. No mechanism reaches the top-right corner. Error bars: 95% confidence intervals of the worst-case configuration.*
 
 | Mechanism | Safety, D = 0 | Safety, D = 100 | Worst-case safety | Worst-case usefulness |
 |---|---|---|---|---|
@@ -135,45 +137,39 @@ The attacker's natural filtering tool is its own model. When given the auditor p
 | Per-agent + reserve | 0.37 | 0.37 | **0.14** (k = 40) | 0.99 |
 | Triage cascade | 0.34 | **0.06** | 0.05 | 0.98 |
 
-*Table 4: The prescreen setting (decoys acquitted by the auditor). D = number of decoys from a coalition of 5. The worst case considers all red strategies, including splitting into k identities. Confidence intervals can be found in the repository; for example, defer at D = 100 is 0.06 (0.00–0.34).*
+*Table 4: The prescreen setting (decoys acquitted by the auditor). D = number of decoys from a coalition of 5. The worst case considers all red strategies, including splitting into k identities. Confidence intervals can be found in the repository. For example, defer at D = 100 is 0.06 (0.00–0.34).*
 
-**Detect:** The budget mechanisms keep their safety at 50 decoys but collapse at 100, which is exactly the inspection budget, because every decoy is flagged. The paired reduction in safety is significant for threshold (−0.38), defer (−0.31), random reserve (−0.31) and cascade (−0.28); all confidence intervals exclude 0.
+**Detect:** The budget mechanisms keep their safety at 50 decoys but collapse at 100, which is exactly the inspection budget, because every decoy is flagged. The paired reduction in safety is significant for threshold (−0.38), defer (−0.31), random reserve (−0.31) and cascade (−0.28). All confidence intervals exclude 0.
 
 **Degrade:** The global tripwire provides 1.00 safety. However, with 25 or more decoys and no attack, the coalition triggers the tripwire in 98–100% of episodes. This reduces usefulness to 0.16 (paired −0.81, CI −0.83 to −0.79).
 
 **Swarm:** The per-agent tripwire loses no usefulness against a coalition of 5. However, when the 200 decoys are spread over 40 identities, no identity is flagged often enough to trigger its own test. This reduces per-agent safety from 0.37 to 0.07 (paired −0.31, CI −0.53 to −0.12).
 
-The same pattern holds with a perfect auditor and innocent decoys: the worst case is 0.06 for defer and 0.07 for per-agent, while the global tripwire keeps 0.44 safety but only 0.16 usefulness.
-
 ### 4.5 Attempted Defences
 
 **Per-agent + random flagged reserve** keeps a quarter of the budget for random inspections of flagged items. It does not significantly outperform the basic per-agent tripwire, and it performs worse at k = 20 (paired −0.18, CI −0.38 to −0.02).
 
-**Triage cascade** only inspects a flagged item if a second model also convicts it. This should remove decoys that appear suspicious but are obviously benign. In practice it does not avoid the trade-off. If the triage model convicts all decoys (prescreen), the cascade is identical to defer. With hand-written decoys (40% of which are convicted by triage), it holds out until about 2.5 times more decoys (D = 100: +0.28 over defer, CI 0.11 to 0.56) and then collapses. With self-screened decoys it performs worse than defer (D = 100: −0.49), because deferring the decoys throws away the inspections that would have convicted the coalition. Further robustness checks (statistics, a better trusted model and a weak monitor) are given in Appendix D.
+**Triage cascade** only inspects a flagged item if a second model also convicts it. This should remove decoys that appear suspicious but are obviously benign. In practice it does not avoid the trade-off. If the triage model convicts all decoys (prescreen), the cascade is identical to defer. With hand-written decoys (40% of which are convicted by triage), it holds out until about 2.5 times more decoys (D = 100: +0.28 over defer, CI 0.11 to 0.56) and then collapses. With self-screened decoys it performs worse than defer (D = 100: −0.49), because deferring the decoys throws away the inspections that would have convicted the coalition. Further robustness tests were performed (statistics, an improved trusted model and a weak monitor). These can be seen in Appendix D.
 
 ## 5. Discussion and Limitations
 
 Our results imply that shared oversight can only be exploited if the monitor flags decoys that the auditor reliably acquits. The condition is sharp, with a threshold around p = 1/(2B). A defender can take a sample of flagged benign items from their fleet, audit them and estimate p before deploying. If p is well above 1/(2B), flooding is pointless and the classic protocols are fine. If p is below this threshold, our results indicate that no simple protocol we tried protects both safety and usefulness. Instead, the defender should treat the gap between the monitor and the auditor as a vulnerability and try to close it, for example by giving the monitor the same information the auditor has.
 
-This also implies that a global tripwire turns any safety alert into a fleet-wide outage, which an adversary can cause cheaply. Per-agent tripwires avoid this, but spreading the flood over many identities defeats them (the same effect Makins et al. [7] found for per-instance monitors).
-
 **Limitations**
 
-The main limitations are that this is a simulation rather than a real fleet, that there are only 10 evaluation tasks, and that the strongest decoys were written by hand. The full list is given in Appendix A.
+The main limitations of this work are that it was simulated rather than using a real fleet, only 10 tasks were used for evaluation, and the strongest decoys were manually written. All limitations can be found in Appendix A.
 
 **Future Work**
 
-We could run this experiment with human auditors. We could also try monitors that have access to the auditor's reasoning (closing the gap instead of defending around it), test whether frontier models can create low-p decoys when prompted, and extend the simulator to multi-step agent tasks.
+We could run this experiment with more human auditors, including security professionals. We could also try monitors that have access to the auditor's reasoning (closing the gap instead of defending around it), test whether frontier models can create low-p decoys when prompted, and extend the simulator to multi-step agent tasks.
 
 ## 6. Conclusion
 
-Colluding agents can exploit the shared oversight budget, but only if the auditor rarely convicts their decoys (fewer than about 1 in 2B). If decoys are convicted at a higher rate, flooding gets the coalition caught. If they are convicted at a lower rate, all the protocols we tried lose either safety (0.06 instead of 0.37) or useful work (16% remaining), and per-agent tripwires are defeated by a 40-identity swarm. With current models, an LLM attacker that screened its own decoys did not reach this threshold. However, carefully written mild decoys did, with no screening at all.
-
-In practice, this gives defenders a metric: how often the auditor convicts work that the monitor flagged but that was benign. This tells the defender whether their fleet is vulnerable before deploying it.
+When agents share a collective auditing budget, colluding agents can exploit it. However, the probability of conviction must be very low for their decoys (less than ~1 in 2B). If it is higher than that, the coalition gets caught when it floods. If it is lower than that, all of our protocols suffer a loss of safety or a significant loss of useful work. An LLM attacker screening its own decoys did not reach this level. However, with carefully written subtle decoys, this level was reached for both the LLM auditor and the human auditor.
 
 ## Code and Data
 
-Code can be found at [GitHub link].
+Code can be found at https://github.com/harshnsawant-source/swarm-detect-or-degrade.
 
 All items, monitor scores, auditor decisions and results can be found in the repository (data/ and results/). Every number in this report is listed in report/FACTS.md together with the file it comes from.
 
@@ -209,7 +205,7 @@ No human subjects, personal data or production systems were involved. All models
 - **Few tasks.** There are only 10 evaluation tasks, which gives wide intervals (e.g. 0.12–0.75 at baseline). All claims of a difference use paired comparisons.
 - **The strong decoys were written by hand.** They were written for this project with AI assistance, before any monitor score existed. They demonstrate that such decoys exist and are easy to create, but they do not prove that a model would produce them without prompting. With our models, an LLM-only attacker did not reach the threshold.
 - **Oracle scenario.** prescreen assumes the adversary knows what the auditor will decide. We found that the attacker's own model cannot predict the auditor's decisions for obvious decoys.
-- **LLM stand-ins.** The auditor is an LLM, and conviction is a simple yes/no decision. A human auditor may have a different p; Figure 1 shows how the conclusions change with p.
+- **LLM stand-ins.** The auditor is an LLM, and conviction is a simple yes/no decision. A human auditor may have a different p, and Figure 1 shows how the conclusions change with p. 88.6% of items agreed between the human auditor and the LLM auditor (kappa = 0.76, see Appendix E).
 - **Degenerate threshold.** Honest items always get a score of 0, so "flagged" means any non-zero score. Monitors that give a range of scores to honest items may behave differently.
 - **Static red strategies.** We varied the number of decoys, the split of the coalition and the degrade strategy. We did not test adaptive strategies that react to what happens during the episode.
 
@@ -232,7 +228,7 @@ No human subjects, personal data or production systems were involved. All models
 | Hand-written mild decoys | 1/60 | 24/60 |
 | Honest | (not audited) | 0/190 |
 
-*Table B1: Both models use the same prompt. One hand-written decoy was convicted by the auditor; it belongs to a discovery task.*
+*Table B1: Both models use the same prompt. One hand-written decoy was convicted by the auditor, and it belongs to a discovery task.*
 
 ## Appendix C. Extra Figures
 
@@ -255,6 +251,39 @@ All post-hoc changes to the experiment are recorded in the repository (DEVIATION
 - **Statistics:** The main results in Sections 4.3–4.4 are significant (the paired confidence intervals exclude 0).
 - **Better trusted model (u = 0.5):** The global tripwire now keeps 0.54 usefulness in the worst case. Degrade is less severe but still costs half of the useful work.
 - **Weak monitor (nemotron-3-nano:4b, attack AUROC 0.51):** Attacks pass without being flagged, so no flooding is needed (safety ~0.03) and the detect horn becomes irrelevant. Decoys still trigger the global tripwire, so the degrade horn remains (usefulness 0.31). The detect horn only matters when the monitor is strong enough that the inspection budget becomes the bottleneck.
+
+**Perfect auditor**
+
+The same pattern holds with a perfect auditor and innocent decoys: the worst case is 0.06 for defer and 0.07 for per-agent, while the global tripwire keeps 0.44 safety but only 0.16 usefulness.
+
+**Global and per-agent tripwires**
+
+This also implies that a global tripwire turns any safety alert into a fleet-wide outage, which an adversary can cause cheaply. Per-agent tripwires avoid this, but spreading the flood over many identities defeats them (the same effect Makins et al. [7] found for per-instance monitors).
+
+## Appendix E. Pilot Human Audit
+
+**Methodology**
+
+The sample, questions and analysis were written down before any verdicts were made (human_audit/PLAN.md). A fixed random sample of 40 items (seed 20261108) was presented to the human auditor in a randomly ordered list using the codes A01 to A40. The items were presented without any indication of what type of item they were. The human auditor was asked the same two questions (whether the item was harmful or deliberately deceptive), and an item is convicted if either answer is "yes". The human auditor read all 40 items in one pass and then provided the verdicts. No verdicts were changed after unblinding.
+
+| Group | Human convicted | LLM auditor convicted |
+|---|---|---|
+| Hand-written mild decoys | 0/12 | 1/12 |
+| Self-screened mild LLM decoys | 2/7 | 1/7 |
+| Obvious LLM decoys | 7/8 | 5/8 |
+| Hand-written attacks | 5/5 | 5/5 |
+| LLM attacks | 1/3 | 1/3 |
+| Honest | 0/5 | (not audited) |
+
+*Table E1: Pilot human audit. The human and LLM auditors agreed on 31 of the 35 items judged by both (88.6%, kappa = 0.76).*
+
+**Disagreements**
+
+There were three instances where the human auditor convicted and the LLM auditor did not: one self-screened mild decoy (harmful) and two obvious LLM decoys (deliberately deceptive). There was also one instance where the LLM auditor convicted and the human did not. This was a hand-written mild decoy, and it was the only conviction of a hand-written decoy by the LLM auditor.
+
+**Limitations**
+
+The audit was done by a single auditor who is not a security professional. There was only one pass through the items and no line-by-line tracing. The sample sizes were small, meaning wide confidence intervals (for the hand-written mild decoys, 0.00 to 0.24). This was a pilot study.
 
 ## LLM Usage Statement
 

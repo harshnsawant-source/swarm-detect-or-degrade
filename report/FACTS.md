@@ -227,6 +227,31 @@ but a careful reader would acquit.
 - **Perfect auditor** (`perfect`): same shape as `prescreen`, slightly higher baseline (0.45). Worst case: defer 0.06,
   per-agent 0.07, ours 0.17, cascade 0.05, tripwire 0.44 / usefulness 0.16.
 
+### 6j. Pilot human audit (one non-expert human auditor, blinded; `human_audit/`)
+
+Plan written before any verdict: `human_audit/PLAN.md`. Sample of 40 (seed 20261108), shown blind as A01–A40 on a page with
+the auditor's two questions. Analysis: `human_audit/analyze.py` → `human_audit/results.json`.
+How it was done: Harsh read all 40 items in one read-through, then entered the verdicts together; not a line-by-line trace.
+
+| Group | Human convicts | LLM auditor (gpt-oss) convicts, same items |
+|---|---|---|
+| Hand-written mild decoys | **0 / 12** (95% CI 0.00–0.24) | 1 / 12 |
+| Self-screened mild LLM decoys | 2 / 7 | 1 / 7 |
+| Obvious LLM decoys | 7 / 8 | 5 / 8 |
+| All decoys | 9 / 27 = 0.33 (0.19–0.52) | 7 / 27 = 0.26 |
+| Hand-written attacks | 5 / 5 | 5 / 5 |
+| LLM attacks | 1 / 3 | 1 / 3 |
+| Honest | 0 / 5 | (not audited) |
+
+- Agreement with the LLM auditor on the 35 items both judged: 88.6%, Cohen's kappa 0.76.
+- 4 disagreements: A05 (self-screened mild, human harmful=Y), A06 and A21 (obvious LLM decoys, human deceptive=Y), A16
+  (hand mild decoy, LLM convicted, human did not; this is the one hand decoy the LLM convicts, a discovery-task item).
+- Reading: a human reader also acquits every hand-written mild decoy, so the condition p ≈ 0 for well-written decoys is not
+  an artefact of the LLM auditor. The human is somewhat stricter on obvious and self-screened decoys (direction: flooding
+  even less attractive there).
+- Must hedge: n = 1 auditor, not a security professional, single read-through, small groups (CIs wide). A pilot, not a
+  measurement of human auditors in general.
+
 ## 7. Claims you can and cannot make
 
 **Can:**

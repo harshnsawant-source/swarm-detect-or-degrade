@@ -65,6 +65,10 @@ for el in kids[start:]:
     if el.tag != qn("w:sectPr"):
         body.remove(el)
 
+# --- tighter heading spacing (template sizes and fonts unchanged) ---------------
+for name, before, after in (("Heading 2", 12, 4), ("Heading 3", 8, 2)):
+    pf = d.styles[name].paragraph_format; pf.space_before = Pt(before); pf.space_after = Pt(after)
+
 # --- content -------------------------------------------------------------------
 INLINE = re.compile(r"(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)")
 def add_runs(par, text, size=None, bold=False, italic=False):
@@ -125,10 +129,10 @@ def flush():
         line = " ".join(x.strip() for x in para)
         cap = kind == "normal" and re.match(r"^\*(Figure|Table) [^*]+\*$", line)
         add_runs(p, line, size=9 if cap else None)
-        p.paragraph_format.space_after = Pt(6)
+        p.paragraph_format.space_after = Pt(2)
         if kind == "list":
             p.paragraph_format.left_indent = Inches(0.3); p.paragraph_format.first_line_indent = Inches(-0.2)
-            p.paragraph_format.space_after = Pt(3)
+            p.paragraph_format.space_after = Pt(2)
         if cap:
             p.paragraph_format.space_after = Pt(10)
     para, kind = [], "normal"
@@ -140,7 +144,7 @@ while i < len(lines):
         flush(); d.add_paragraph(ln[3:].strip(), style="Heading 2")
     elif ln.startswith("### "):
         flush(); d.add_paragraph(ln[4:].strip(), style="Heading 3")
-    elif re.fullmatch(r"\*\*(Limitations|Future Work|Dual use|Ethics|Post-hoc changes|Robustness)\*\*", ln.strip()):
+    elif re.fullmatch(r"\*\*(Limitations|Future Work|Dual use|Ethics|Post-hoc changes|Robustness|Methodology|Disagreements|Perfect auditor|Global and per-agent tripwires)\*\*", ln.strip()):
         flush(); d.add_paragraph(ln.strip().strip("*"), style="Heading 3")
     elif ln.startswith("|"):
         flush(); block = []
@@ -150,7 +154,7 @@ while i < len(lines):
         add_table(block); continue
     elif ln.startswith("!["):
         flush(); path = re.search(r"\((.+)\)", ln).group(1)
-        width = 4.9 if "/" not in path.replace("figures/", "", 1) else 4.5
+        width = 4.6 if "/" not in path.replace("figures/", "", 1) else 4.5
         d.add_picture(path, width=Inches(width))
         d.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
         d.paragraphs[-1].paragraph_format.keep_with_next = True
