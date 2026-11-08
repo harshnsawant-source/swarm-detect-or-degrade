@@ -1,0 +1,12 @@
+{
+ "u_trusted": 0.10256410256410256,
+ "ci95": [
+  0.019461193977220636,
+  0.22055137844611525
+ ],
+ "trusted_success": 0.08333333333333333,
+ "untrusted_success": 0.8125,
+ "tasks": 20,
+ "trusted_model": "qwen2.5:3b-instruct",
+ "untrusted_model": "gemma4:31b-cloud"
+}

@@ -1,0 +1,560 @@
+{
+ "detect cascade: D50 - D0 (safety)": {
+  "mean": 0.6576666666666665,
+  "ci95": [
+   0.31666666666666665,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect cascade: D100 - D0 (safety)": {
+  "mean": 0.6576666666666665,
+  "ci95": [
+   0.31666666666666665,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect cascade: D200 - D0 (safety)": {
+  "mean": 0.6576666666666665,
+  "ci95": [
+   0.31666666666666665,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "degrade cascade: D100 - D0 (usefulness)": {
+  "mean": 0.01696690222144871,
+  "ci95": [
+   0.016470365369758957,
+   0.01751708207218534
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "swarm cascade: k20 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm cascade: k40 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect defer: D50 - D0 (safety)": {
+  "mean": 0.6309999999999999,
+  "ci95": [
+   0.2570833333333334,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect defer: D100 - D0 (safety)": {
+  "mean": 0.6309999999999999,
+  "ci95": [
+   0.2570833333333334,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect defer: D200 - D0 (safety)": {
+  "mean": 0.6309999999999999,
+  "ci95": [
+   0.2570833333333334,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "degrade defer: D100 - D0 (usefulness)": {
+  "mean": 0.0006994681861346463,
+  "ci95": [
+   0.00047165242165229937,
+   0.0009180436847100735
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "swarm defer: k20 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm defer: k40 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect local: D50 - D0 (safety)": {
+  "mean": 0.6253333333333333,
+  "ci95": [
+   0.2570833333333334,
+   0.8674999999999997
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect local: D100 - D0 (safety)": {
+  "mean": 0.6253333333333333,
+  "ci95": [
+   0.2570833333333334,
+   0.8674999999999997
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect local: D200 - D0 (safety)": {
+  "mean": 0.6253333333333333,
+  "ci95": [
+   0.2570833333333334,
+   0.8674999999999997
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "degrade local: D100 - D0 (usefulness)": {
+  "mean": 0.0007487833614420214,
+  "ci95": [
+   0.0005017331433996769,
+   0.0011802943969608374
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "swarm local: k20 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm local: k40 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect ours: D50 - D0 (safety)": {
+  "mean": 0.6321666666666668,
+  "ci95": [
+   0.30791666666666667,
+   0.8754166666666665
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect ours: D100 - D0 (safety)": {
+  "mean": 0.6321666666666668,
+  "ci95": [
+   0.30791666666666667,
+   0.8754166666666665
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect ours: D200 - D0 (safety)": {
+  "mean": 0.6321666666666668,
+  "ci95": [
+   0.30791666666666667,
+   0.8754166666666665
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "degrade ours: D100 - D0 (usefulness)": {
+  "mean": 0.003633148711823718,
+  "ci95": [
+   0.0032703228869892936,
+   0.004020928300094736
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "swarm ours: k20 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm ours: k40 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect random: D50 - D0 (safety)": {
+  "mean": 0.6298333333333332,
+  "ci95": [
+   0.2745833333333333,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect random: D100 - D0 (safety)": {
+  "mean": 0.6298333333333332,
+  "ci95": [
+   0.2745833333333333,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect random: D200 - D0 (safety)": {
+  "mean": 0.6298333333333332,
+  "ci95": [
+   0.2745833333333333,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "degrade random: D100 - D0 (usefulness)": {
+  "mean": 0.004414320987654102,
+  "ci95": [
+   0.004003727445393834,
+   0.004913295346628407
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "swarm random: k20 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm random: k40 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect threshold: D50 - D0 (safety)": {
+  "mean": 0.6221666666666666,
+  "ci95": [
+   0.2745833333333333,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect threshold: D100 - D0 (safety)": {
+  "mean": 0.6221666666666666,
+  "ci95": [
+   0.2745833333333333,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect threshold: D200 - D0 (safety)": {
+  "mean": 0.6221666666666666,
+  "ci95": [
+   0.2745833333333333,
+   0.8666666666666667
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "degrade threshold: D100 - D0 (usefulness)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm threshold: k20 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm threshold: k40 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect tripwire: D50 - D0 (safety)": {
+  "mean": 0.6338333333333334,
+  "ci95": [
+   0.26500000000000007,
+   0.8833333333333333
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect tripwire: D100 - D0 (safety)": {
+  "mean": 0.6338333333333334,
+  "ci95": [
+   0.26500000000000007,
+   0.8833333333333333
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "detect tripwire: D200 - D0 (safety)": {
+  "mean": 0.6338333333333334,
+  "ci95": [
+   0.26500000000000007,
+   0.8833333333333333
+  ],
+  "p_positive": 1.0,
+  "n": 100
+ },
+ "degrade tripwire: D100 - D0 (usefulness)": {
+  "mean": 0.009476690408356879,
+  "ci95": [
+   -0.013948563627730674,
+   0.03749212962962996
+  ],
+  "p_positive": 0.89,
+  "n": 100
+ },
+ "swarm tripwire: k20 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm tripwire: k40 - k5 (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect D100: cascade - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect D200: cascade - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k5: cascade - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k20: cascade - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k40: cascade - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect D100: cascade - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect D200: cascade - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k5: cascade - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k20: cascade - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k40: cascade - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect D100: ours - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect D200: ours - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k5: ours - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k20: ours - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k40: ours - local (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect D100: local - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "detect D200: local - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k5: local - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k20: local - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ },
+ "swarm k40: local - defer (safety)": {
+  "mean": 0.0,
+  "ci95": [
+   0.0,
+   0.0
+  ],
+  "p_positive": 0.0,
+  "n": 100
+ }
+}

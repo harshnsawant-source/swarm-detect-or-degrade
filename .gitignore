@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+
+# local backups and superseded versions
+*.bak
+*.bak[0-9]
+*.v1*.md
+README.v1.md
+report/*.v1*
+
+# debug runs and run logs (logs contain local machine paths)
+results/debug*/
+report/figures/debug*/
+logs/
+results/logs/
+
+# report build intermediates; the submitted report is report/Detect-or-Degrade-Apart.pdf
+report/template/
+report/report.md
+report/build_docx.py
+report/build_own_words.py
+report/Detect-or-Degrade-draft.*
+report/Detect-or-Degrade.docx
+report/Detect-or-Degrade.pdf
+report/Detect-or-Degrade-Apart.docx
+~$*
