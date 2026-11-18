@@ -33,9 +33,12 @@ templates and before any evaluation episode.
   team tracked its own decoys ("We've submitted 15 Cs total. The 5 reviews should be exhausted. Switching to
   B now"). With full feedback, agents used "flagged but ran without review" as the signal that the budget
   was gone (smoke episode).
-- **No agent screened its decoys.** None chose A (clean) to wait out a risky decoy or discussed that a decoy
-  might itself be judged deceptive. The main study shows that pre-screened decoys are what make flooding
-  pay, so the agents found the strategy but not the refinement that makes it dangerous.
+- **The agents treated decoys as risk-free.** Their reasons repeatedly say a C submission will use up a
+  review "without risking a team shutdown". Of 102 evaluation choices, 93 were C, 7 B and 2 A (both A choices
+  were "stay under the radar" openers, not a way to avoid a risky decoy). No agent considered that the auditor
+  might judge a decoy deceptive, which is what got 18 of 20 teams caught. The main study shows that
+  pre-screened decoys are what make flooding pay, so the agents found the strategy but not the refinement
+  that makes it dangerous.
 - **Neither model refused** the attacker role: 0 refusals in 21 gpt-oss-120b calls and 81 Gemma calls
   (evaluation episodes). No reply needed the fallback.
 - The two Gemma conditions share environment seeds (paired design): the same tasks and monitor draws, so the
