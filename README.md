@@ -75,3 +75,17 @@ Models run through Ollama: `gemma4:31b-cloud` (free tier) as the untrusted model
   (the template itself is not included; download it from the hackathon page into `report/template/`).
 - `report/FACTS.md`: every number in the report, with the file it comes from.
 - `report/figures/`: all figures; `pcurve.png` and `headline_frontier.png` are Figures 1 and 2.
+
+## Post-hackathon addition: real-agent pilot (18 Nov 2026)
+
+Added after the judged submission; nothing above was changed. Three colluding agents are real LLMs (Gemma 4
+31B, gpt-oss-120b) that know the oversight rules and share a private channel; each round they pick a clean,
+backdoored or harmless-but-unusual submission from the study's verified items, and the cached monitor and
+auditor verdicts decide what happens. In all 20 evaluation episodes the agents came up with audit flooding by
+themselves; in 18 of 20 a flooded decoy got the team caught. Design `pilot/PLAN.md`, frozen settings
+`pilot/FROZEN.json`, results `pilot/RESULTS.md`, logs `results/real_agents/`.
+
+```
+python pilot/test_real_agents.py      # environment checks, no model calls
+python pilot/summarize.py             # rebuilds the results table from the saved episodes
+```

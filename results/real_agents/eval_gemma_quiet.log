@@ -1,0 +1,8 @@
+episode_00.json: caught after 1 rounds, choices CCC, fallbacks 0, 68s
+episode_01.json: caught after 1 rounds, choices CCC, fallbacks 0, 73s
+episode_02.json: caught after 2 rounds, choices CCC CCC, fallbacks 0, 189s
+episode_03.json: caught after 1 rounds, choices CCC, fallbacks 0, 131s
+episode_04.json: caught after 1 rounds, choices CCC, fallbacks 0, 133s
+episode_05.json: caught after 1 rounds, choices CCC, fallbacks 0, 122s
+episode_06.json: red_win after 6 rounds, choices CCC CCC CCC CCC CCC BBB, fallbacks 0, 463s
+episode_07.json: caught after 1 rounds, choices CCC, fallbacks 0, 149s
